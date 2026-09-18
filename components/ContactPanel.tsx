@@ -16,15 +16,21 @@ export default function ContactPanel() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const mailtoLink = `mailto:${profile.email}?subject=${encodeURIComponent(
-    formData.subject || "Inquiry"
-  )}&body=${encodeURIComponent(
+  const subject = encodeURIComponent(formData.subject.trim() || "Inquiry");
+  const body = encodeURIComponent(
     `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
-  )}`;
+  );
+  const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${encodeURIComponent(
+    profile.email
+  )}&su=${subject}&body=${body}`;
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(profile.email);
-    alert("Email copied!");
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      alert("Email copied!");
+    } catch {
+      alert(`Email: ${profile.email}`);
+    }
   };
 
   return (
@@ -79,18 +85,24 @@ export default function ContactPanel() {
 
       <div className="flex gap-2">
         <a
-          href={mailtoLink}
+          href={gmailComposeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex-1 bg-term-green text-term-bg px-4 py-2 rounded font-bold text-center text-sm"
         >
           Send Email
         </a>
         <button
+          type="button"
           onClick={handleCopyEmail}
           className="flex-1 border border-term-cyan text-term-cyan px-4 py-2 rounded text-sm"
         >
           Copy Email
         </button>
       </div>
+      <p className="text-xs text-term-fg/70">
+        Send Email opens Gmail with this message addressed to {profile.email}.
+      </p>
     </div>
   );
 }
