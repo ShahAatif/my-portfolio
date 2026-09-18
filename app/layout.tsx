@@ -8,7 +8,7 @@ import EasterEgg from "@/components/EasterEgg";
 export const metadata: Metadata = {
   title: `${profile.name} — ${profile.role}`,
   description: `${profile.name}, ${profile.role}. Database administration and full-stack development.`,
-  metadataBase: new URL("https://shahaatif.vercel.app"),
+  metadataBase: new URL("https://my-portfolio-weld-eight-77.vercel.app"),
 };
 
 export default function RootLayout({

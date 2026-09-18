@@ -3,7 +3,7 @@ export const profile = {
   role: "Database Administrator & Full-Stack Developer",
   location: "India",
   email: "shahaatifb@gmail.com",
-  phone: "+91-6005847809",
+  phone: "+91-9876543210",
   github: "https://github.com/shahaatifb",
   linkedin: "https://www.linkedin.com/in/shah-aatif-bashir/",
   bio: [
