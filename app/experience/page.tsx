@@ -1,0 +1,3 @@
+import TerminalWindow from "@/components/TerminalWindow";
+import ExperienceTimeline from "@/components/ExperienceTimeline";
+export default function ExperiencePage() { return <div className="page-shell"><TerminalWindow title="~/experience"><p className="terminal-label">PRODUCTION & DELIVERY HISTORY</p><h1 className="mt-2 text-3xl text-green">$ git log --oneline --career</h1><p className="mt-4 max-w-3xl text-sm text-term-fg">A progression from backend application development to production-oriented Oracle database operations.</p><div className="mt-8"><ExperienceTimeline /></div></TerminalWindow></div>; }

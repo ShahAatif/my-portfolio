@@ -1,0 +1,2 @@
+import { skillGroups } from "@/data/skills";
+export default function SkillsGrid() { return <div className="grid gap-4 md:grid-cols-2">{skillGroups.map((group) => <section className="terminal-card p-4" key={group.name}><p className="text-xs text-amber">$ {group.prompt}</p><h2 className="mt-2 text-lg text-green">{group.name}</h2><div className="mt-4 flex flex-wrap gap-2">{group.skills.map((skill) => <span key={skill} className="skill-chip">{skill}</span>)}</div></section>)}</div>; }

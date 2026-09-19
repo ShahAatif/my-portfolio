@@ -1,55 +1,6 @@
 import TerminalWindow from "@/components/TerminalWindow";
-import { profile } from "@/data/profile";
-import { resume } from "@/data/resume";
 import JsonBlock from "@/components/JsonBlock";
-
-export default function About() {
-  return (
-    <div className="min-h-screen px-4 py-12">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <TerminalWindow title="~/about">
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-2xl text-green mb-4">About {profile.name}</h1>
-              <div className="space-y-3 text-term-fg text-sm">
-                {profile.bio.map((para, idx) => (
-                  <p key={idx}>{para}</p>
-                ))}
-              </div>
-            </div>
-
-            <div className="border-t border-term-green pt-6">
-              <h2 className="text-xl text-green mb-4">$ cat skills.json</h2>
-              <JsonBlock data={resume.skills} />
-            </div>
-
-            <div className="border-t border-term-green pt-6">
-              <h2 className="text-xl text-green mb-4">$ git log --oneline</h2>
-              <div className="space-y-3 text-sm">
-                {resume.education.map((edu, idx) => (
-                  <div key={idx} className="border-l-2 border-term-cyan pl-4">
-                    <div className="text-cyan">{edu.period}</div>
-                    <div className="text-green font-bold">{edu.degree}</div>
-                    <div className="text-term-fg text-xs">{edu.school}</div>
-                    <div className="text-amber text-xs">{edu.details}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="border-t border-term-green pt-6">
-              <h2 className="text-xl text-green mb-4">Certifications</h2>
-              <div className="space-y-2 text-sm">
-                {resume.certifications.map((cert, idx) => (
-                  <div key={idx} className="text-term-fg">
-                    ✓ {cert}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </TerminalWindow>
-      </div>
-    </div>
-  );
-}
+import { profile } from "@/data/profile";
+import { skillGroups } from "@/data/skills";
+import { resume } from "@/data/resume";
+export default function About() { const skills = Object.fromEntries(skillGroups.map((group) => [group.name, group.skills])); return <div className="page-shell"><TerminalWindow title="~/about"><p className="terminal-label">PROFILE / ENGINEERING NOTES</p><h1 className="mt-2 text-3xl text-green">$ cat about.md</h1><div className="mt-7 grid gap-8 lg:grid-cols-[1.25fr_.75fr]"><div className="space-y-7"><section><h2 className="text-xl text-green">## Profile</h2>{profile.bio.map((paragraph) => <p className="mt-3 text-sm leading-7 text-term-fg" key={paragraph}>{paragraph}</p>)}</section><section><h2 className="text-xl text-green">## Career Journey</h2><p className="mt-3 text-sm leading-7 text-term-fg">My work has moved from enterprise application development to production database operations. That combination helps me reason about both the service layer and the systems that keep data-backed applications dependable.</p></section><section><h2 className="text-xl text-green">## Engineering Philosophy</h2><p className="mt-3 text-sm leading-7 text-term-fg">Prefer observable systems, clear ownership, and boringly reliable operational practices. Whether investigating a database alert or designing an API, I value precise diagnostics, understandable boundaries, and changes that are easy to support.</p></section><section><h2 className="text-xl text-green">## Interests</h2><p className="mt-3 text-sm leading-7 text-term-fg">Database reliability, backend engineering, system design fundamentals, developer tooling, and learning by building—from compilers and data stores to practical web applications.</p></section></div><aside className="space-y-5"><div><p className="text-amber">$ cat skills.json</p><div className="mt-3"><JsonBlock data={skills} /></div></div><div className="terminal-card p-4"><p className="terminal-label">EDUCATION</p>{resume.education.map((edu) => <div className="mt-4" key={edu.degree}><p className="text-sm text-green">{edu.degree}</p><p className="text-xs text-cyan">{edu.school}</p><p className="text-xs text-amber">{edu.period} · {edu.details}</p></div>)}</div></aside></div></TerminalWindow></div>; }

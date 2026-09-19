@@ -7,7 +7,7 @@ export default function TerminalWindow({
 }) {
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <div className="bg-term-border rounded-lg overflow-hidden shadow-2xl border border-term-green">
+      <div className="terminal-window bg-term-border rounded-lg overflow-hidden shadow-2xl border border-term-green">
         <div className="bg-gradient-to-r from-term-border to-term-bg px-4 py-3 flex items-center justify-between border-b border-term-green">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-red-500" />

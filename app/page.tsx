@@ -1,98 +1,12 @@
-import TypedTerminal from "@/components/TypedTerminal";
-import TerminalWindow from "@/components/TerminalWindow";
-import { profile } from "@/data/profile";
 import Link from "next/link";
-
-export default function Home() {
-  const topSkills = ["Java", "SQL", "ASP.NET Core", "Angular", "Database Admin"];
-
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
-      <TerminalWindow>
-        <div className="space-y-6">
-          <TypedTerminal
-            lines={[
-              `$ whoami`,
-              `${profile.name}`,
-              ``,
-              `$ cat profile.json`,
-              `{`,
-              `  "role": "${profile.role}",`,
-              `  "location": "${profile.location}",`,
-              `  "status": "actively_coding",`,
-              `  "contact": "${profile.email}"`,
-              `}`,
-            ]}
-            speed={50}
-          />
-
-          <div className="mt-8 space-y-4">
-            <h2 className="text-xl text-green">Quick Stats</h2>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-term-border p-3 rounded border border-term-border">
-                <div className="text-cyan">Experience</div>
-                <div className="text-green font-bold">2+ Years</div>
-              </div>
-              <div className="bg-term-border p-3 rounded border border-term-border">
-                <div className="text-cyan">Projects</div>
-                <div className="text-green font-bold">10+</div>
-              </div>
-              <div className="bg-term-border p-3 rounded border border-term-border">
-                <div className="text-cyan">Languages</div>
-                <div className="text-green font-bold">Java, SQL, C#, JS</div>
-              </div>
-              <div className="bg-term-border p-3 rounded border border-term-border">
-                <div className="text-cyan">Speciality</div>
-                <div className="text-green font-bold">Database Admin</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 space-y-4">
-            <h2 className="text-xl text-green">Top Skills</h2>
-            <div className="flex flex-wrap gap-2">
-              {topSkills.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1 bg-term-border text-cyan text-sm border border-term-green rounded"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-term-border space-y-3">
-            <p className="text-sm text-term-fg">
-              Database Administrator at IN Solutions Global Limited. Previously built full-stack applications at Capgemini.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/about"
-                className="px-4 py-2 bg-term-green text-term-bg rounded font-bold hover:bg-term-cyan transition"
-              >
-                $ cd about
-              </Link>
-              <Link
-                href="/projects"
-                className="px-4 py-2 border border-term-green text-term-green rounded hover:bg-term-border transition"
-              >
-                $ ls projects
-              </Link>
-              <Link
-                href="/resume"
-                className="px-4 py-2 border border-term-cyan text-term-cyan rounded hover:bg-term-border transition"
-              >
-                $ cat resume
-              </Link>
-            </div>
-          </div>
-        </div>
-      </TerminalWindow>
-
-      <div className="mt-12 text-center text-xs text-term-border">
-        <p>tip: type <code className="text-cyan">sudo hire-me</code> anywhere on the site</p>
-      </div>
-    </div>
-  );
-}
+import TerminalWindow from "@/components/TerminalWindow";
+import RecruiterSnapshot from "@/components/RecruiterSnapshot";
+import ExperienceTimeline from "@/components/ExperienceTimeline";
+import SkillsGrid from "@/components/SkillsGrid";
+import ProjectCard from "@/components/ProjectCard";
+import Reveal from "@/components/Reveal";
+import CommandPalette from "@/components/CommandPalette";
+import ScrambleIntro, { ScrambleText } from "@/components/ScrambleIntro";
+import { profile } from "@/data/profile";
+import { projects } from "@/data/projects";
+export default function Home() { return <div className="page-shell space-y-7"><TerminalWindow title="~/command-center"><div className="hero-grid relative"><ScrambleIntro /><div><p className="text-amber">$ whoami</p><h1 className="mt-4 text-3xl font-semibold text-green sm:text-5xl"><ScrambleText text={profile.name} /></h1><p className="mt-4 text-lg text-cyan"><ScrambleText text={profile.role} /></p><p className="mt-5 max-w-2xl text-sm leading-7 text-term-fg"><ScrambleText text="Database and data engineer building scalable, AI-ready infrastructure for reliable, observable systems." /></p><div className="mt-7 flex flex-wrap gap-3"><Link className="button-primary" href="/projects">$ ls projects</Link><Link className="button-secondary" href="/resume">$ cat resume</Link><Link className="button-secondary" href="/contact">$ contact</Link></div></div><aside className="terminal-card relative overflow-hidden p-4 text-sm"><div className="orbital-core" aria-hidden="true"><i /><b /><em /></div><div className="relative z-10"><p className="terminal-label">SYSTEM STATUS</p><dl className="mt-4 space-y-3"><div><dt className="text-cyan">current_role</dt><dd>Oracle DBA / DBA L1</dd></div><div><dt className="text-cyan">location</dt><dd>{profile.location}</dd></div><div><dt className="text-cyan">availability</dt><dd className="text-green">open to relevant opportunities</dd></div><div><dt className="text-cyan">focus</dt><dd>data engineering + AI infrastructure</dd></div></dl></div></aside></div><div className="mt-7"><CommandPalette /></div></TerminalWindow><Reveal><RecruiterSnapshot /></Reveal><section><p className="terminal-label">SELECTED WORK</p><h2 className="mt-2 text-2xl text-green">$ ls featured-projects/</h2><div className="mt-5 grid gap-5 md:grid-cols-3">{projects.slice(0, 3).map((project) => <ProjectCard key={project.slug} project={project} />)}</div><Link className="terminal-link mt-5 inline-block" href="/projects">view all projects →</Link></section><section className="grid gap-7 lg:grid-cols-2"><Reveal><div><p className="terminal-label">CAREER LOG</p><h2 className="mt-2 text-2xl text-green">$ git log --experience</h2><div className="mt-5"><ExperienceTimeline compact /></div><Link className="terminal-link mt-5 inline-block" href="/experience">read full experience →</Link></div></Reveal><Reveal delay={0.08}><div><p className="terminal-label">TECHNOLOGY STACK</p><h2 className="mt-2 text-2xl text-green">$ skills --summary</h2><div className="mt-5"><SkillsGrid /></div><Link className="terminal-link mt-5 inline-block" href="/skills">inspect full stack →</Link></div></Reveal></section></div>; }
